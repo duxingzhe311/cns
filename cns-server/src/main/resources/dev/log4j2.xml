@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG" monitorInterval="300" shutdownHook="disable">
+
+    <Properties>
+    	<property name="LOG_HOME">logs</property>
+        <Property name="FILE">${LOG_HOME}/${project.name}</Property>
+        <Property name="ERROR_FILE">${LOG_HOME}/${project.name}-error</Property>
+        <Property name="PATTERN">%d %-5p [%t] %l - %m%n</Property>
+    </Properties>
+ 
+    <appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+
+        <RollingFile name="FILE" fileName="${FILE}.log"
+                     filePattern="${FILE}.%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="ERROR_FILE" fileName="${ERROR_FILE}.log"
+                     filePattern="${ERROR_FILE}.%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <logger name="org.springframework" level="info"></logger>
+        <logger name="org.apache.shiro" level="info"></logger>
+        <logger name="org.apache.http" level="warn"></logger>
+        <logger name="org.apache.commons.httpclient" level="warn"></logger>
+        <logger name="com.mchange.v2" level="warn"></logger>
+        <logger name="net.sf.ehcache" level="warn"></logger>
+
+        <root level="debug">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+    </loggers>
+</Configuration>
