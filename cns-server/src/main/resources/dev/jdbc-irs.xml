@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSource>
+	<!-- 主库数据源设置 -->
+	<master name="master_01" type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://172.16.10.65:3306/pingxin_irs_db?allowMultiQueries=true" username="root"
+		password="password_pinglian" maxIdle="3" maxWait="5000" maxActive="10"
+		removeAbandoned="true" removeAbandonedTimeout="180"
+		testOnBorrow="true" validationQuery="SELECT 1" />
+
+	<!-- 从库数据源设置 -->
+	<slave name="slave_01" type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://172.16.10.65:3306/pingxin_irs_db" username="root"
+		password="password_pinglian" maxIdle="3" maxWait="5000" maxActive="10"
+		removeAbandoned="true" removeAbandonedTimeout="180"
+		testOnBorrow="true" validationQuery="SELECT 1" />
+
+</DataSource>

@@ -1,4 +1,4 @@
-namespace java com.shifen.cloud.naming.common.thrift.define
+namespace java com.shifen.cloud.name.common.thrift.define
 
 struct TCloudHost {
   // Host id 

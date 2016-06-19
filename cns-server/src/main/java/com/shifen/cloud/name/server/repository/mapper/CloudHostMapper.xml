@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shifen.cloud.name.server.repository.mapper.CloudHostMapper" >
+  <resultMap id="BaseResultMap" type="com.shifen.cloud.name.common.entity.CloudHost" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="hostname" property="hostname" jdbcType="VARCHAR" />
+      <result column="ip" property="ip" jdbcType="VARCHAR" />
+      <result column="wan_ip" property="wanIp" jdbcType="VARCHAR" />
+      <result column="cpu_quota" property="cpuQuota" jdbcType="INTEGER" />
+      <result column="mem_quota" property="memQuota" jdbcType="INTEGER" />
+      <result column="system_disk_quota" property="systemDiskQuota" jdbcType="INTEGER"  />
+      <result column="home_disk_quota" property="homeDiskQuota" jdbcType="INTEGER" />
+      <result column="idc" property="idc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, hostname, ip, wan_ip, cpu_quota, mem_quota, system_disk_quota, home_disk_quota, idc
+  </sql>
+  
+  <!-- 查询 -->
+  <select id="selectByPrimaryKey" parameterType="long" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from host where id = #{id, jdbcType=BIGINT}
+  </select>
+    <select id="selectByIp" parameterType="String" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from host where ip = #{ip, jdbcType=VARCHAR}
+  </select>
+    <select id="selectByHostname" parameterType="String" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from host where hostname = #{hostname, jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="long">
+  	delete from host where id = #{id, jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByIp" parameterType="String">
+  	delete from host where ip = #{ip, jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByHostname" parameterType="String">
+  	delete from host where hostname = #{hostname, jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 批量新增 -->
+  <insert id="insertBatch" parameterType="map">
+  	insert into host (id, hostname, cpu_quota, mem_quota, system_disk_quota, home_disk_quota, ip, wan_ip, idc) values 
+  	<foreach collection="hosts" item="h" separator=","> 
+  		(#{h.id, jdbcType=BIGINT},#{h.hostname, jdbcType=VARCHAR}, #{h.cpuQuota, jdbcType=INTEGER}, #{h.memQuota, jdbcType=INTEGER},
+  		 #{h.systemDiskQuota, jdbcType=INTEGER}, #{h.homeDiskQuota, jdbcType=INTEGER}, #{h.ip, jdbcType=VARCHAR},
+  		 #{h.wan_ip, jdbcType=VARCHAR}, #{h.idc, jdbcType=VARCHAR})
+  	</foreach>
+  </insert>
+  <insert id="insert" parameterType="map">
+  	insert into host (id, hostname, cpu_quota, mem_quota, system_disk_quota, home_disk_quota, ip, wan_ip, idc) values 
+  		(#{id, jdbcType=BIGINT},#{hostname, jdbcType=VARCHAR}, #{cpuQuota, jdbcType=INTEGER}, #{memQuota, jdbcType=INTEGER},
+  		 #{systemDiskQuota, jdbcType=INTEGER}, #{homeDiskQuota, jdbcType=INTEGER}, #{ip, jdbcType=VARCHAR},
+  		 #{wan_ip, jdbcType=VARCHAR}, #{idc, jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 更新 -->
+  <update id="updateByPrimaryKey" parameterType="map">
+    update host 
+	set hostname = #{hostname, jdbcType=VARCHAR}, cpu_quota = #{cpuQuota, jdbcType=INTEGER}, mem_quota = memQuota, jdbcType=INTEGER},
+	    system_disk_quota = #{systemDiskQuota, jdbcType=INTEGER}, home_disk_quota = #{homeDiskQuota, jdbcType=INTEGER}, 
+	    ip = #{ip, jdbcType=VARCHAR}, wan_ip = #{wan_ip, jdbcType=VARCHAR}, idc = #{idc, jdbcType=VARCHAR}
+	where id = #{id, jdbcType=BIGINT}
+  </update>
+    <update id="updateByIp" parameterType="map">
+    update host 
+	set hostname = #{hostname, jdbcType=VARCHAR}, cpu_quota = #{cpuQuota, jdbcType=INTEGER}, mem_quota = memQuota, jdbcType=INTEGER},
+	    system_disk_quota = #{systemDiskQuota, jdbcType=INTEGER}, home_disk_quota = #{homeDiskQuota, jdbcType=INTEGER}, 
+	    wan_ip = #{wan_ip, jdbcType=VARCHAR}, idc = #{idc, jdbcType=VARCHAR}
+	where ip = #{ip, jdbcType=VARCHAR}
+  </update>
+    <update id="updateByHostname" parameterType="map">
+    update host
+	set cpu_quota = #{cpuQuota, jdbcType=INTEGER}, mem_quota = memQuota, jdbcType=INTEGER},
+	    system_disk_quota = #{systemDiskQuota, jdbcType=INTEGER}, home_disk_quota = #{homeDiskQuota, jdbcType=INTEGER}, 
+	    ip = #{ip, jdbcType=VARCHAR}, wan_ip = #{wan_ip, jdbcType=VARCHAR}, idc = #{idc, jdbcType=VARCHAR}
+	where hostname = #{hostname, jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

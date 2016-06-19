@@ -1,4 +1,4 @@
-namespace java com.shifen.cloud.naming.common.thrift.service
+namespace java com.shifen.cloud.name.common.thrift.service
 
 include "../define/TCloudHost.thrift"
 include "../exception/Exception.thrift"
