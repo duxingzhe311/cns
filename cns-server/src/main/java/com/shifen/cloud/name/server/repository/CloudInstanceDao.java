@@ -1,4 +1,4 @@
-package com.shifen.cloud.name.server.repository.instance;
+package com.shifen.cloud.name.server.repository;
 
 import java.util.List;
 

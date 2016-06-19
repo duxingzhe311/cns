@@ -1,11 +1,10 @@
-package com.shifen.cloud.name.server.repository.host;
+package com.shifen.cloud.name.server.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.shifen.cloud.name.common.entity.CloudHost;
-import com.shifen.cloud.name.server.repository.base.BaseDao;
 
 /**
  * @author guofengzhao
